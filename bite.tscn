@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dsn2gfndgmucx"]
+
+[ext_resource type="Texture2D" uid="uid://by5guadsnr2hp" path="res://Assets/pngwing.com.png" id="1_m5vxb"]
+
+[node name="bite" type="Sprite2D"]
+scale = Vector2(0.025, 0.025)
+texture = ExtResource("1_m5vxb")

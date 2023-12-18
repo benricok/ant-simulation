@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8sqstoukfb8m"]
+
+[ext_resource type="Script" path="res://simulation.gd" id="2_us3e7"]
+
+[node name="Colony" type="Node2D"]
+position = Vector2(181, 126)
+
+[node name="Button" type="Button" parent="."]
+offset_left = -162.0
+offset_top = -108.0
+offset_right = -154.0
+offset_bottom = -100.0
+text = "Regenerate"
+script = ExtResource("2_us3e7")
+ant_max_speed = 40.0
+ant_steer_strength = 100.0
+ant_wander_strength = 0.05

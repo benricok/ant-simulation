@@ -1,7 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://dsn2gfndgmucx"]
+[gd_scene load_steps=3 format=3 uid="uid://dsn2gfndgmucx"]
 
 [ext_resource type="Texture2D" uid="uid://by5guadsnr2hp" path="res://Assets/pngwing.com.png" id="1_m5vxb"]
 
-[node name="bite" type="Sprite2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_uv41i"]
+radius = 200.0
+
+[node name="bite" type="Area2D" groups=["Food"]]
+position = Vector2(587, 327)
 scale = Vector2(0.025, 0.025)
+collision_layer = 2
+collision_mask = 2
+
+[node name="sprite" type="Sprite2D" parent="."]
 texture = ExtResource("1_m5vxb")
+
+[node name="biteCollision" type="CollisionShape2D" parent="." groups=["Food"]]
+shape = SubResource("CircleShape2D_uv41i")

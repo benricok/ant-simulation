@@ -1,17 +1,63 @@
-[gd_scene load_steps=2 format=3 uid="uid://c8sqstoukfb8m"]
+[gd_scene load_steps=5 format=3 uid="uid://c8sqstoukfb8m"]
 
+[ext_resource type="Script" path="res://Background.gd" id="2_sit5a"]
 [ext_resource type="Script" path="res://simulation.gd" id="2_us3e7"]
+[ext_resource type="Texture2D" uid="uid://dsc7rcfet6dcn" path="res://Assets/ant colony.png" id="3_ckvke"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i8mhl"]
+radius = 59.0085
 
 [node name="Colony" type="Node2D"]
-position = Vector2(181, 126)
+top_level = true
+light_mask = 512
+visibility_layer = 512
+position = Vector2(20, 19)
 
 [node name="Button" type="Button" parent="."]
-offset_left = -162.0
-offset_top = -108.0
-offset_right = -154.0
-offset_bottom = -100.0
+light_mask = 0
+visibility_layer = 512
+offset_left = -5.0
+offset_top = -4.0
+offset_right = 92.0
+offset_bottom = 27.0
 text = "Regenerate"
 script = ExtResource("2_us3e7")
-ant_max_speed = 40.0
-ant_steer_strength = 100.0
-ant_wander_strength = 0.05
+ant_count = 90
+ant_max_speed = 20.0
+ant_colony_radius = 140
+ant_steer_strength = 1000.0
+ant_wander_strength = 0.03
+patches_of_food = 2
+food_multiplier = 16
+
+[node name="Background" type="Node2D" parent="."]
+show_behind_parent = true
+light_mask = 512
+visibility_layer = 512
+script = ExtResource("2_sit5a")
+
+[node name="Home" type="Area2D" parent="."]
+show_behind_parent = true
+light_mask = 512
+visibility_layer = 512
+
+[node name="CollisionHome" type="CollisionShape2D" parent="Home"]
+shape = SubResource("CircleShape2D_i8mhl")
+
+[node name="Homesprite" type="Sprite2D" parent="Home"]
+visible = false
+scale = Vector2(0.17, 0.17)
+texture = ExtResource("3_ckvke")
+
+[node name="Scorelabel" type="Label" parent="."]
+offset_left = -2.0
+offset_top = 39.0
+offset_right = 38.0
+offset_bottom = 62.0
+text = "Score: "
+
+[node name="Score" type="Label" parent="."]
+offset_left = 50.0
+offset_top = 40.0
+offset_right = 90.0
+offset_bottom = 63.0

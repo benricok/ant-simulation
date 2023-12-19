@@ -23,7 +23,11 @@ var _bite = preload("res://bite.tscn")
 @onready var _background = $"../Background"
 @onready var _home = $"../Home"
 @onready var _homesprite = $"../Home/Homesprite"
+@onready var _homearea = $"../Home/CollisionHome"
 @onready var _score = $"../Score"
+
+var current_process_group: int = 0
+@export var max_process_groups: int = 2
 
 func new_direction() -> Vector2:
 	var new_dir: = Vector2()
@@ -48,10 +52,13 @@ func _pressed():
 	_score.text = "0"
 	score = 0
 	
+	# Generate new colony location
 	var colony_center = Vector2(rng.randi_range(ant_colony_offset, viewport_size.x - ant_colony_offset),
 							  	rng.randi_range(ant_colony_offset, viewport_size.y - ant_colony_offset))
 	
+	# Update colony nodes
 	_home.position = colony_center
+	_homearea.position = colony_center
 	_homesprite.visible = true
 	
 	for i in range(ant_count):
@@ -66,6 +73,7 @@ func _pressed():
 		new_ant.desired_direction = new_direction()
 		new_ant.viewport_size = viewport_size
 		new_ant.colony_center = colony_center
+		new_ant.process_group = randi_range(1, max_process_groups)
 		ants.append(new_ant)
 		add_child(new_ant)
 	
@@ -81,6 +89,11 @@ func _pressed():
 		
 			food.append(new_bite)
 			add_child(new_bite)
+
+func _process(delta):
+	current_process_group += 1
+	if current_process_group >= max_process_groups:
+		current_process_group = 1
 
 func inc_score():
 	score += 1

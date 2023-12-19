@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=3 uid="uid://cb8dgb4flbr8n"]
+[gd_scene load_steps=66 format=3 uid="uid://cb8dgb4flbr8n"]
 
 [ext_resource type="Script" path="res://ant.gd" id="1_3k8lc"]
 [ext_resource type="Texture2D" uid="uid://mrnf7xu2bnea" path="res://Assets/ant_walk.png" id="1_btbfh"]
@@ -445,17 +445,9 @@ animations = [{
 "speed": 56.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kcjjd"]
-radius = 2.0
-height = 26.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_1hliy"]
-radius = 6.97675
-
 [node name="Ant" type="CharacterBody2D"]
 process_physics_priority = 1
-position = Vector2(12, 6)
-scale = Vector2(0.65, 0.65)
+scale = Vector2(0.58, 0.58)
 script = ExtResource("1_3k8lc")
 
 [node name="Animation" type="AnimatedSprite2D" parent="."]
@@ -466,33 +458,8 @@ animation = &"walk"
 frame = 35
 frame_progress = 0.574677
 
-[node name="Collision" type="CollisionShape2D" parent="."]
-position = Vector2(-3.681, 0)
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_kcjjd")
-disabled = true
-
-[node name="Sensor_left" type="Area2D" parent="."]
-
-[node name="collision_left" type="CollisionShape2D" parent="Sensor_left"]
-position = Vector2(18.6046, -11.6279)
-scale = Vector2(0.785, 0.785)
-shape = SubResource("CircleShape2D_1hliy")
-
-[node name="Sensor_right" type="Area2D" parent="."]
-
-[node name="collision_right" type="CollisionShape2D" parent="Sensor_right"]
-position = Vector2(18.6046, 11.6279)
-scale = Vector2(0.785, 0.785)
-shape = SubResource("CircleShape2D_1hliy")
-
-[node name="Sensor_front" type="Area2D" parent="."]
-
-[node name="collision_front" type="CollisionShape2D" parent="Sensor_front"]
-position = Vector2(23.2558, -1.90735e-06)
-shape = SubResource("CircleShape2D_1hliy")
-
 [node name="Sensor_food" type="Area2D" parent="."]
+position = Vector2(1.53846, 0)
 collision_layer = 2
 collision_mask = 2
 

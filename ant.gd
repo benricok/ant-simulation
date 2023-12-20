@@ -46,22 +46,23 @@ func new_direction() -> Vector2:
 func handle_food():
 	if has_bite == false:
 		if targeted_bite == null:
-			#if current_process_group == process_group:
-			var allFood:Array
-			
-			for item in _food_sensor.get_overlapping_areas():
-				if item.is_in_group("Food"):
-					allFood.append(item)
+			if current_process_group == process_group:
+				var allFood:Array
 				
-			if allFood.size() > 0:
-				randomize()
-				targeted_bite = allFood[randi() % allFood.size()]
-				targeted_bite.remove_from_group("Food")
-				desired_direction = Vector2(targeted_bite.position - position).normalized()
+				for item in _food_sensor.get_overlapping_areas():
+					if item.is_in_group("Food"):
+						allFood.append(item)
+					
+				if allFood.size() > 0:
+					randomize()
+					targeted_bite = allFood[randi() % allFood.size()]
+					targeted_bite.remove_from_group("Food")
+					desired_direction = Vector2(targeted_bite.position - position).normalized()
 		else:
 			desired_direction = Vector2(targeted_bite.position - position).normalized()
 			
 			if targeted_bite.position.distance_to(position) < bite_pickup_radius:
+				_background.trail_found.append([position, 1.0])
 				has_bite = true
 				targeted_bite.position = position
 				velocity = -velocity
@@ -81,6 +82,8 @@ func handle_food():
 			has_bite = false
 			velocity = -velocity
 			desired_direction = -desired_direction
+			_background.trail_searching.append([position, 1.0])
+			#_background.trail_searching.append([position, 1.0])
 			_button.inc_score()
 
 func handle_sensors():
@@ -115,10 +118,15 @@ func handle_sensors():
 			elif right_sense_pos.distance_to(trail[0]) <= sense_radius:
 				near_right += 1
 	
-	if near_left >= near_front and near_left >= near_right:
-		desired_direction = (position + left_sense_pos).normalized()
-	elif near_right >= near_left and near_right >= near_front:
-		desired_direction = (position + right_sense_pos).normalized()
+	#print("(" + str(near_left) + ", " + str(near_front) + ", " + str(near_right) + ")")
+	
+	if near_front + near_left + near_right > 0:
+		if near_left >= near_front and near_left >= near_right:
+			desired_direction = desired_direction.rotated(-PI/12)
+			#desired_direction = (position + left_sense_pos).normalized()
+		elif near_right >= near_left and near_right >= near_front:
+			desired_direction = desired_direction.rotated(PI/12)
+			#desired_direction = (position + right_sense_pos).normalized()
 	
 	
 	#_background.dots_left.append(left_sense_pos)
@@ -137,7 +145,8 @@ func _physics_process(delta):
 	
 	handle_food()
 	
-	handle_sensors()
+	if current_process_group == process_group:
+		handle_sensors()
 	
 	# Add a bit of randomness to direction
 	desired_direction = (desired_direction + (new_direction() * wander_strength)).normalized()

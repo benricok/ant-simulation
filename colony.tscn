@@ -22,13 +22,16 @@ offset_right = 92.0
 offset_bottom = 27.0
 text = "Regenerate"
 script = ExtResource("2_us3e7")
-ant_count = 20
-ant_max_speed = 10.0
-ant_colony_radius = 140
+ant_count = 130
+ant_max_speed = 30.0
+ant_colony_radius = 100
+ant_colony_offset = 20
 ant_steer_strength = 1000.0
 ant_wander_strength = 0.03
 patches_of_food = 2
-food_multiplier = 16
+food_multiplier = 30
+food_radius = 100
+max_process_groups = 12
 
 [node name="Background" type="Node2D" parent="."]
 show_behind_parent = true

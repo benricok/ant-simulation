@@ -27,7 +27,7 @@ var _bite = preload("res://bite.tscn")
 @onready var _score = $"../Score"
 
 var current_process_group: int = 0
-@export var max_process_groups: int = 2
+@export var max_process_groups: int = 3
 
 func new_direction() -> Vector2:
 	var new_dir: = Vector2()
